@@ -105,8 +105,8 @@ const cardAppender = (selector) => {
 
     let list = value.data.articles;
 
-    for(let key in list) {
-      list[key].forEach(element => {
+    for(let item in list) {
+      list[item].forEach(element => {
         let test = Card(element);
         let cards = document.querySelector(selector);
         cards.appendChild(test);
