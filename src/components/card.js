@@ -1,3 +1,5 @@
+import axios from "axios"
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -86,21 +88,41 @@ const cardAppender = (selector) => {
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
 
-  const cardMaker = document.querySelector(selector)
+    // const cardMaker = document.querySelector(selector)
+  
+    // axios.get("https://lambda-times-api.herokuapp.com/articles")
+    //   .then(res => {
+    //     const data = res.articles;
+    //     for (let articles in data) {
+    //       data[articles].forEach(i => {
+    //         cardMaker.appendChild(Card(i))
+    //       })
+    //     }
+    //   })
+      let response = axios.get(`http://localhost:5000/api/articles`)
 
-  axios.get("https://lambda-times-api.herokuapp.com/articles")
-    .then(res => {
-      const data = res.data.articles;
-      for (let articles in data) {
-        data[articles].forEach(i => {
-          cardMaker.appendChild(Card(i))
-        })
-      }
-    })
-    .catch(err => {
-      console.log("something went wrong with the api", err)
-    })
+  response.then((value) => {
 
+    let list = value.data.articles;
+
+    for(let key in list) {
+      list[key].forEach(element => {
+        let test = Card(element);
+        let cards = document.querySelector(selector);
+        cards.appendChild(test);
+      });
+    }
+  });
+      // const mountingpoint = document.querySelector(selector)
+      // axios.get('https://lambda-times-api.herokuapp.com/articles')
+      // .then(response => {
+      //   response.articles.forEach(things =>{
+      //     const madeCard = Card(things)
+      //     mountingpoint.appendChild(madeCard)
+      //   });
+      // })
+    
+  
 }
 
 export { Card, cardAppender }
